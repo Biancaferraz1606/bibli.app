@@ -1,21 +1,20 @@
-
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Livro } from './livro.entity';
-
+import { LivrosController } from './livros.controller';
+import { LivrosService } from './livros.service';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres', 
-      username: 'seu_usuario', 
-      database: 'biblioteca', 
+      type: 'sqlite',
+      database: 'db.sqlite',
       entities: [Livro],
       synchronize: true,
     }),
-   AppModule,
+    TypeOrmModule.forFeature([Livro]),
   ],
-  controllers: [],
-  providers: [],
+  controllers: [LivrosController],
+  providers: [LivrosService],
 })
 export class AppModule {}
 
